@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Profile - Dr. Sarah Johnson | TutorHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        .profile-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            padding: 120px 0 80px;
+        }
+        
+        .profile-header {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: -50px;
+            position: relative;
+        }
+        
+        .profile-cover {
+            height: 200px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            position: relative;
+        }
+        
+        .profile-avatar {
+            position: absolute;
+            bottom: -60px;
+            left: 40px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            padding: 80px 40px 40px 180px;
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-title {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-badges {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-badge {
+            background: rgba(244, 196, 48, 0.1);
+            color: var(--navy);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .profile-badge.verified {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin: 1.5rem 0;
+        }
+        
+        .profile-stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--navy);
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .section-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            color: var(--gold);
+        }
+        
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .subject-item {
+            background: rgba(244, 196, 48, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .subject-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.2);
+        }
+        
+        .subject-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gold);
+        }
+        
+        .experience-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(244, 196, 48, 0.2);
+        }
+        
+        .experience-date {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-title {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+        
+        .experience-company {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .availability-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-day:hover {
+            border-color: var(--gold);
+            background-color: rgba(244, 196, 48, 0.1);
+        }
+        
+        .calendar-day.available {
+            background: rgba(244, 196, 48, 0.2);
+            border-color: var(--gold);
+        }
+        
+        .calendar-day.unavailable {
+            background: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .review-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .review-info h6 {
+            margin-bottom: 0.25rem;
+            color: var(--navy);
+        }
+        
+        .review-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-text {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            overflow-y: auto;
+        }
+        
+        .booking-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .booking-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .time-slot {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .time-slot:hover {
+            border-color: var(--gold);
+            background-color: rgba(244, 196, 48, 0.1);
+        }
+        
+        .time-slot.selected {
+            background: var(--gold);
+            color: var(--navy);
+            border-color: var(--gold);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-info {
+                padding: 80px 20px 40px 20px;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .profile-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+            }
+            
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap text-gold me-2"></i>
+                <span class="fw-bold">TutorHub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home2.html">Home 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="find-tutors.html">Find Tutors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="subjects.html">Subjects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="how-it-works.html">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reviews.html">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-light me-2">Login</a>
+                    <a href="register.html" class="btn btn-gold">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Hero -->
+    <section class="profile-hero">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-cover"></div>
+                <div class="profile-avatar">
+                    <img src="https://picsum.photos/seed/sarah/200/200" alt="Dr. Sarah Johnson">
+                </div>
+                <div class="profile-info">
+                    <h1 class="profile-name">Dr. Sarah Johnson</h1>
+                    <p class="profile-title">Mathematics Expert | PhD in Applied Mathematics</p>
+                    <div class="profile-badges">
+                        <span class="profile-badge verified">
+                            <i class="fas fa-check-circle me-1"></i>ID Verified
+                        </span>
+                        <span class="profile-badge">
+                            <i class="fas fa-shield-alt me-1"></i>Background Checked
+                        </span>
+                        <span class="profile-badge">
+                            <i class="fas fa-award me-1"></i>Top Rated
+                        </span>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="stat-number">4.9</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-number">127</div>
+                            <div class="stat-label">Reviews</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">Students</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-number">$45</div>
+                            <div class="stat-label">Per Hour</div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-gold btn-lg" onclick="openBookingModal()">
+                            <i class="fas fa-calendar-check me-2"></i>Book Session
+                        </button>
+                        <button class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-message me-2"></i>Send Message
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-heart me-2"></i>Save Tutor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+                    <!-- About Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-user"></i>
+                            About Me
+                        </h3>
+                        <p class="lead">Hello! I'm Dr. Sarah Johnson, a passionate mathematics educator with over 8 years of teaching experience at both university and high school levels.</p>
+                        <p>I hold a PhD in Applied Mathematics from Stanford University and have dedicated my career to making complex mathematical concepts accessible and enjoyable for students of all levels. My teaching philosophy focuses on building strong foundational understanding while developing problem-solving skills that extend beyond the classroom.</p>
+                        <p>I specialize in Calculus, Linear Algebra, Statistics, and have helped hundreds of students achieve their academic goals, from passing difficult exams to gaining admission to top universities.</p>
+                    </div>
+
+                    <!-- Subjects Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-book"></i>
+                            Subjects I Teach
+                        </h3>
+                        <div class="subject-grid">
+                            <div class="subject-item">
+                                <div class="subject-icon">
+                                    <i class="fas fa-square-root-alt"></i>
+                                </div>
+                                <h6>Algebra</h6>
+                                <small>All Levels</small>
+                            </div>
+                            <div class="subject-item">
+                                <div class="subject-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h6>Calculus</h6>
+                                <small>I, II, III</small>
+                            </div>
+                            <div class="subject-item">
+                                <div class="subject-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <h6>Statistics</h6>
+                                <small>Basic to Advanced</small>
+                            </div>
+                            <div class="subject-item">
+                                <div class="subject-icon">
+                                    <i class="fas fa-shapes"></i>
+                                </div>
+                                <h6>Geometry</h6>
+                                <small>All Levels</small>
+                            </div>
+                            <div class="subject-item">
+                                <div class="subject-icon">
+                                    <i class="fas fa-infinity"></i>
+                                </div>
+                                <h6>Trigonometry</h6>
+                                <small>All Levels</small>
+                            </div>
+                            <div class="subject-item">
+                                <div class="subject-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <h6>SAT/ACT Math</h6>
+                                <small>Test Prep</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-briefcase"></i>
+                            Experience & Education
+                        </h3>
+                        <div class="experience-timeline">
+                            <div class="experience-item">
+                                <div class="experience-date">2016 - Present</div>
+                                <div class="experience-title">Private Mathematics Tutor</div>
+                                <div class="experience-company">Self-Employed</div>
+                                <p>Providing one-on-one tutoring services to high school and college students, specializing in advanced mathematics and test preparation.</p>
+                            </div>
+                            <div class="experience-item">
+                                <div class="experience-date">2018 - 2022</div>
+                                <div class="experience-title">Adjunct Professor</div>
+                                <div class="experience-company">Stanford University</div>
+                                <p>Taught undergraduate courses in Calculus and Linear Algebra, mentored students, and conducted research in applied mathematics.</p>
+                            </div>
+                            <div class="experience-item">
+                                <div class="experience-date">2015 - 2018</div>
+                                <div class="experience-title">Mathematics Teacher</div>
+                                <div class="experience-company">Palo Alto High School</div>
+                                <p>Taught AP Calculus, Statistics, and Algebra II to high school students, achieving 95% pass rate on AP exams.</p>
+                            </div>
+                            <div class="experience-item">
+                                <div class="experience-date">2015</div>
+                                <div class="experience-title">PhD in Applied Mathematics</div>
+                                <div class="experience-company">Stanford University</div>
+                                <p>Doctoral research focused on mathematical modeling and optimization techniques.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-star"></i>
+                            Student Reviews
+                        </h3>
+                        
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <img src="https://picsum.photos/seed/student1/100/100" alt="Student">
+                                </div>
+                                <div class="review-info">
+                                    <h6>Michael Chen</h6>
+                                    <div class="review-date">2 weeks ago</div>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-text">
+                                Dr. Johnson is an exceptional tutor! She helped me understand complex calculus concepts that I was struggling with for months. Her teaching style is patient, clear, and very effective. I went from failing to getting an A in my class!
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <img src="https://picsum.photos/seed/student2/100/100" alt="Student">
+                                </div>
+                                <div class="review-info">
+                                    <h6>Emily Rodriguez</h6>
+                                    <div class="review-date">1 month ago</div>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-text">
+                                Best math tutor I've ever had! Dr. Johnson makes difficult topics seem easy. She's always prepared, explains things clearly, and provides great practice problems. Highly recommend for anyone struggling with math.
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <img src="https://picsum.photos/seed/student3/100/100" alt="Student">
+                                </div>
+                                <div class="review-info">
+                                    <h6>David Kim</h6>
+                                    <div class="review-date">2 months ago</div>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="review-text">
+                                Very knowledgeable and patient tutor. Dr. Johnson helped me prepare for my SAT math section and my score improved by 200 points! She provides excellent strategies and practice materials.
+                            </div>
+                        </div>
+
+                        <button class="btn btn-outline-gold w-100">
+                            <i class="fas fa-plus-circle me-2"></i>Load More Reviews
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-lg-4">
+                    <!-- Availability Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-calendar"></i>
+                            Availability
+                        </h3>
+                        <p class="text-muted mb-3">Available for online and in-person sessions</p>
+                        <div class="availability-calendar">
+                            <div class="calendar-day available">
+                                <small>Mon</small>
+                            </div>
+                            <div class="calendar-day available">
+                                <small>Tue</small>
+                            </div>
+                            <div class="calendar-day unavailable">
+                                <small>Wed</small>
+                            </div>
+                            <div class="calendar-day available">
+                                <small>Thu</small>
+                            </div>
+                            <div class="calendar-day available">
+                                <small>Fri</small>
+                            </div>
+                            <div class="calendar-day available">
+                                <small>Sat</small>
+                            </div>
+                            <div class="calendar-day unavailable">
+                                <small>Sun</small>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                Typical hours: 9:00 AM - 8:00 PM
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Teaching Style Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            Teaching Style
+                        </h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-gold me-2"></i>
+                                Interactive problem-solving
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-gold me-2"></i>
+                                Visual learning aids
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-gold me-2"></i>
+                                Real-world applications
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-gold me-2"></i>
+                                Step-by-step explanations
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-gold me-2"></i>
+                                Practice-focused approach
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Languages Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-language"></i>
+                            Languages
+                        </h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-gold text-navy">English (Native)</span>
+                            <span class="badge bg-gold text-navy">Spanish (Fluent)</span>
+                            <span class="badge bg-gold text-navy">French (Basic)</span>
+                        </div>
+                    </div>
+
+                    <!-- Location Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Location
+                        </h3>
+                        <p><strong>Online:</strong> Available worldwide</p>
+                        <p><strong>In-Person:</strong> Palo Alto, CA</p>
+                        <p><strong>Travel Radius:</strong> 15 miles</p>
+                    </div>
+
+                    <!-- Response Time -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-bolt"></i>
+                            Response Time
+                        </h3>
+                        <p>Usually responds within <strong>2 hours</strong></p>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-gold" style="width: 95%"></div>
+                        </div>
+                        <small class="text-muted">95% response rate</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>Book a Session</h3>
+                <button class="btn btn-close" onclick="closeBookingModal()"></button>
+            </div>
+            
+            <form id="bookingForm">
+                <div class="mb-3">
+                    <label class="form-label">Select Date</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Select Time</label>
+                    <div class="time-slots">
+                        <div class="time-slot" onclick="selectTimeSlot(this)">9:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">10:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">11:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">2:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">3:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">4:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">5:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">6:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Session Duration</label>
+                    <select class="form-select" required>
+                        <option value="">Select duration</option>
+                        <option value="60">1 hour - $45</option>
+                        <option value="90">1.5 hours - $67.50</option>
+                        <option value="120">2 hours - $90</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Learning Mode</label>
+                    <select class="form-select" required>
+                        <option value="">Select mode</option>
+                        <option value="online">Online</option>
+                        <option value="inperson">In-Person</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">What would you like to focus on?</label>
+                    <textarea class="form-control" rows="3" placeholder="e.g., Calculus homework, exam preparation, concept review..."></textarea>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-gold flex-fill">
+                        <i class="fas fa-check me-2"></i>Confirm Booking
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="closeBookingModal()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gold mb-3">TutorHub</h5>
+                    <p>Your trusted platform for finding verified tutors and achieving academic excellence.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-gold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">About Us</a></li>
+                        <li><a href="#" class="text-white-50">How It Works</a></li>
+                        <li><a href="#" class="text-white-50">Become a Tutor</a></li>
+                        <li><a href="#" class="text-white-50">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-gold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">Help Center</a></li>
+                        <li><a href="#" class="text-white-50">Contact Us</a></li>
+                        <li><a href="#" class="text-white-50">FAQs</a></li>
+                        <li><a href="#" class="text-white-50">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-gold mb-3">Newsletter</h6>
+                    <p>Subscribe to get updates on new tutors and learning resources.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-gold" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2026 TutorHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Booking Modal Functions
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Time Slot Selection
+        function selectTimeSlot(element) {
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        // Booking Form Submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const selectedTime = document.querySelector('.time-slot.selected');
+            if (!selectedTime) {
+                TutorHub.showNotification('Please select a time slot', 'info');
+                return;
+            }
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            TutorHub.showLoading(submitBtn, 'Booking...');
+            
+            setTimeout(() => {
+                TutorHub.hideLoading(submitBtn, 'Confirm Booking');
+                closeBookingModal();
+                TutorHub.showNotification('Session booked successfully! Check your email for confirmation.', 'success');
+                this.reset();
+            }, 2000);
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookingModal();
+            }
+        });
+        
+        // Save Tutor Function
+        document.querySelector('.fa-heart').parentElement.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-gold');
+                TutorHub.showNotification('Tutor saved to your favorites!', 'success');
+            } else {
+                icon.classList.remove('fas', 'text-gold');
+                icon.classList.add('far');
+                TutorHub.showNotification('Tutor removed from favorites', 'info');
+            }
+        });
+        
+        // Send Message Function
+        document.querySelector('.fa-message').parentElement.addEventListener('click', function() {
+            TutorHub.showNotification('Message feature coming soon!', 'info');
+        });
+        
+        // Initialize heart icon as far
+        document.querySelector('.fa-heart').classList.add('far');
+    </script>
+</body>
+</html>
