@@ -377,9 +377,8 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-graduation-cap text-gold me-2"></i>
-                <span class="fw-bold">TutorHub</span>
+            <a class="navbar-brand" href="index.html" aria-label="TutorHub home">
+                <i class="fas fa-graduation-cap text-gold"></i>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -411,7 +410,10 @@
                         <a class="nav-link" href="dashboard.html">Dashboard</a>
                     </li>
                 </ul>
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <button class="theme-toggle me-3" type="button" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="login.html" class="btn btn-outline-light me-2">Login</a>
                     <a href="register.html" class="btn btn-gold">Register</a>
                 </div>

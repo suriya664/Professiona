@@ -1,4 +1,5 @@
 // Main JavaScript file for TutorHub
+const THEME_STORAGE_KEY = 'tutorhub-theme';
 
 // Counter Animation
 function animateCounters() {
@@ -19,6 +20,53 @@ function animateCounters() {
             }
         }
         animate();
+    });
+}
+
+// Theme Toggle
+function initializeThemeToggle() {
+    const toggles = document.querySelectorAll('.theme-toggle');
+    if (!toggles.length) {
+        return;
+    }
+
+    let currentTheme = localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+
+    const updateToggleControls = () => {
+        toggles.forEach((toggle) => {
+            toggle.setAttribute('aria-pressed', currentTheme === 'dark');
+            toggle.setAttribute('title', currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            toggle.setAttribute('aria-label', currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+
+            const icon = toggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-moon', currentTheme !== 'dark');
+                icon.classList.toggle('fa-sun', currentTheme === 'dark');
+            }
+        });
+    };
+
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            currentTheme = 'dark';
+        } else {
+            document.body.removeAttribute('data-theme');
+            currentTheme = 'light';
+        }
+
+        localStorage.setItem(THEME_STORAGE_KEY, currentTheme);
+        updateToggleControls();
+    };
+
+    updateToggleControls();
+    applyTheme(currentTheme);
+
+    toggles.forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(nextTheme);
+        });
     });
 }
 
@@ -278,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleTutorCards();
     handleNewsletter();
     handleSmoothScroll();
+    initializeThemeToggle();
     
     // Add reveal class to elements that should animate on scroll
     const animatedElements = document.querySelectorAll('.subject-card, .tutor-card, .trust-card');
