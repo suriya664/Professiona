@@ -1,971 +1,357 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - TutorHub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link href="css/styles.css" rel="stylesheet">
-    <style>
-        .dashboard-hero {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-            padding: 120px 0 60px;
-        }
-        
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .sidebar {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
+    <title>Dashboard &mdash; Tutor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        @media (max-width: 991.98px) {
-            .sidebar {
-                position: static;
-                margin-bottom: 1.5rem;
-            }
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-        
-        .brand-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--navy);
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-        }
-        
-        .brand-link i {
-            font-size: 1.4rem;
-            color: var(--gold);
-        }
-        
-        .brand-link:hover {
-            color: var(--gold);
-        }
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="fonts/brand/style.css">
 
-        @media (min-width: 992px) {
-            #dashboardSidebar.collapse {
-                display: block !important;
-                height: auto !important;
-                visibility: visible !important;
-            }
-        }
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/aos.css">
 
-        .sidebar-header {
-            text-align: center;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 1.5rem;
-        }
-        
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 1rem;
-            border: 3px solid var(--gold);
-        }
-        
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .user-name {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--navy);
-            margin-bottom: 0.25rem;
-        }
-        
-        .user-role {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .sidebar-menu li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--navy);
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(244, 196, 48, 0.1);
-            color: var(--gold);
-        }
-        
-        .sidebar-menu i {
-            width: 20px;
-            text-align: center;
-        }
-        
-        .main-content {
-            padding-left: 2rem;
-        }
-        
-        .content-header {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-        
-        .content-title {
-            font-size: 1.75rem;
-            font-weight: bold;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-        
-        .content-subtitle {
-            color: #666;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--gold);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            color: var(--navy);
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .content-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-        
-        .card-header-custom {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--navy);
-        }
-        
-        .session-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(244, 196, 48, 0.05);
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .session-item:hover {
-            background: rgba(244, 196, 48, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .session-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        
-        .session-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .session-info {
-            flex: 1;
-        }
-        
-        .session-title {
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.25rem;
-        }
-        
-        .session-details {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .session-time {
-            text-align: right;
-        }
-        
-        .session-date {
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.25rem;
-        }
-        
-        .session-duration {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .tutor-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--white);
-            border: 1px solid #eee;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .tutor-item:hover {
-            border-color: var(--gold);
-            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.2);
-        }
-        
-        .tutor-info {
-            flex: 1;
-        }
-        
-        .tutor-name {
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.25rem;
-        }
-        
-        .tutor-subjects {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .tutor-rating {
-            color: var(--gold);
-            font-size: 0.9rem;
-        }
-        
-        .tutor-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .btn-sm-custom {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .progress-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .progress-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .progress-title {
-            font-weight: 600;
-            color: var(--navy);
-        }
-        
-        .progress-percentage {
-            color: var(--gold);
-            font-weight: 600;
-        }
-        
-        .progress {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-bar-custom {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), var(--gold-light));
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-        
-        .message-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--white);
-            border: 1px solid #eee;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .message-item:hover {
-            border-color: var(--gold);
-            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.2);
-        }
-        
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        
-        .message-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .message-content {
-            flex: 1;
-        }
-        
-        .message-sender {
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.25rem;
-        }
-        
-        .message-text {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .message-time {
-            color: #999;
-            font-size: 0.8rem;
-        }
-        
-        .message-status {
-            width: 10px;
-            height: 10px;
-            background: var(--gold);
-            border-radius: 50%;
-            margin-top: 0.5rem;
-        }
-        
-        @media (max-width: 992px) {
-            .sidebar {
-                position: static;
-                margin-bottom: 2rem;
-            }
-            
-            .main-content {
-                padding-left: 0;
-            }
-        }
-    </style>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+
 </head>
+
 <body>
-    <!-- Dashboard Section -->
-    <section class="dashboard-hero">
-        <div class="container dashboard-container">
-            <button class="btn btn-gold d-lg-none mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardSidebar" aria-controls="dashboardSidebar" aria-expanded="false" aria-label="Toggle dashboard menu">
-                <i class="fas fa-bars me-2"></i>Dashboard Menu
-            </button>
-            <div class="row">
-                <!-- Sidebar -->
-                <div class="col-lg-3">
-                    <div id="dashboardSidebar" class="collapse d-lg-block">
-                        <div class="sidebar">
-                            <div class="sidebar-header">
-                                <div class="sidebar-brand">
-                                    <a class="navbar-brand" href="index.html" aria-label="TutorHub home">
-                                        <i class="fas fa-graduation-cap text-gold"></i>
-                                    </a>
-                                    <a class="btn btn-outline-secondary btn-sm" href="index.html">
-                                        <i class="fas fa-sign-out-alt me-1"></i>Logout
-                                    </a>
-                                </div>
-                                <div class="user-avatar">
-                                    <img src="https://picsum.photos/seed/user/160/160" alt="User">
-                                </div>
-                                <div class="user-name">John Doe</div>
-                                <div class="user-role">Student</div>
-                            </div>
-                            
-                            <ul class="sidebar-menu">
-                                <li>
-                                    <a href="#" class="active" onclick="showSection('overview')">
-                                        <i class="fas fa-home"></i>
-                                        Overview
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="showSection('sessions')">
-                                        <i class="fas fa-calendar"></i>
-                                        My Sessions
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="showSection('tutors')">
-                                        <i class="fas fa-users"></i>
-                                        Saved Tutors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="showSection('progress')">
-                                        <i class="fas fa-chart-line"></i>
-                                        Learning Progress
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="showSection('messages')">
-                                        <i class="fas fa-envelope"></i>
-                                        Messages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="showSection('payments')">
-                                        <i class="fas fa-credit-card"></i>
-                                        Payments
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="showSection('settings')">
-                                        <i class="fas fa-cog"></i>
-                                        Settings
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                            </li>
-                            <li>
-                                <a href="#" onclick="showSection('sessions')">
-                                    <i class="fas fa-calendar"></i>
-                                    My Sessions
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="showSection('tutors')">
-                                    <i class="fas fa-users"></i>
-                                    Saved Tutors
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="showSection('progress')">
-                                    <i class="fas fa-chart-line"></i>
-                                    Learning Progress
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="showSection('messages')">
-                                    <i class="fas fa-envelope"></i>
-                                    Messages
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="showSection('payments')">
-                                    <i class="fas fa-credit-card"></i>
-                                    Payments
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="showSection('settings')">
-                                    <i class="fas fa-cog"></i>
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>
+
+
+    <div class="site-wrap" id="home-section">
+
+        <div class="d-flex flex-column flex-md-row" style="min-height: 100vh;">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="bg-primary text-white p-4" style="min-width: 250px; flex-shrink: 0;">
+                <div class="sidebar-header mb-5 text-center">
+                    <div class="site-logo">
+                        <a href="index.html" class="text-white h3"><span
+                                class="icon-book mr-3"></span><strong>Tutor</strong></a>
+
                     </div>
                 </div>
-                
-                <!-- Main Content -->
-                <div class="col-lg-9">
-                    <div class="main-content">
-                        <!-- Overview Section -->
-                        <div id="overview-section" class="content-section">
-                            <div class="content-header">
-                                <h1 class="content-title">Welcome back, John!</h1>
-                                <p class="content-subtitle">Here's what's happening with your learning journey</p>
+
+                <ul class="list-unstyled components">
+                    <li class="active mb-3">
+                        <a href="dashboard.html" class="text-white d-block p-2 rounded bg-white-10"><span
+                                class="icon-dashboard mr-2"></span> Dashboard</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="index.html" class="text-white d-block p-2 rounded"><span class="icon-home mr-2"></span>
+                            Home 1</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="index-2.html" class="text-white d-block p-2 rounded"><span
+                                class="icon-home mr-2"></span> Home 2</a>
+                    </li>
+
+                    <li class="mb-3">
+                        <a href="tutorials.html" class="text-white d-block p-2 rounded"><span
+                                class="icon-book mr-2"></span> My Courses</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-star mr-2"></span>
+                            Achievements</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-clock-o mr-2"></span>
+                            Study Stats</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-bar-chart mr-2"></span>
+                            Weekly Progress</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-calendar mr-2"></span>
+                            Upcoming Sessions</a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="index.html" class="text-white d-block p-2 rounded bg-danger-hover"><span
+                                class="icon-sign-out mr-2"></span>
+                            Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content Area -->
+            <div id="content" class="flex-grow-1 bg-light">
+                <!-- Top Navigation Bar -->
+                <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom p-3 shadow-sm">
+                    <div class="container-fluid justify-content-center position-relative">
+                        <button type="button" id="sidebarCollapse" class="btn btn-primary d-md-none position-absolute"
+                            style="left: 15px;">
+                            <span class="icon-menu"></span>
+                        </button>
+                        <span class="navbar-brand h4 mb-0 text-black mx-auto">Dashboard Overview</span>
+                        <a href="#" class="btn btn-link js-dark-mode-toggle position-absolute text-black"
+                            style="right: 15px; top: 50%; transform: translateY(-50%);">
+                            <span class="icon-moon h4 mb-0"></span>
+                        </a>
+                    </div>
+                </nav>
+
+                <div class="p-4 p-md-5">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="p-4 bg-white text-center shadow-sm rounded">
+                                <span class="icon-book display-4 text-primary mb-3 d-block"></span>
+                                <h3 class="h5 text-black mb-3">My Courses</h3>
+                                <p class="text-muted">12 Active Courses</p>
+                                <p><a href="#" class="btn btn-primary btn-sm px-4">View All</a></p>
                             </div>
-                            
-                            <!-- Stats Grid -->
-                            <div class="stats-grid">
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-calendar-check"></i>
-                                    </div>
-                                    <div class="stat-number">12</div>
-                                    <div class="stat-label">Sessions Completed</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-clock"></i>
-                                    </div>
-                                    <div class="stat-number">24</div>
-                                    <div class="stat-label">Hours Learned</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="stat-number">3</div>
-                                    <div class="stat-label">Active Tutors</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-trophy"></i>
-                                    </div>
-                                    <div class="stat-number">85%</div>
-                                    <div class="stat-label">Progress Score</div>
-                                </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="p-4 bg-white text-center shadow-sm rounded">
+                                <span class="icon-star display-4 text-primary mb-3 d-block"></span>
+                                <h3 class="h5 text-black mb-3">Achievements</h3>
+                                <p class="text-muted">5 Badges Earned</p>
+                                <p><a href="#" class="btn btn-primary btn-sm px-4">View Badges</a></p>
                             </div>
-                            
-                            <!-- Upcoming Sessions -->
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Upcoming Sessions</h3>
-                                    <a href="#" class="btn btn-gold btn-sm-custom">View All</a>
-                                </div>
-                                
-                                <div class="session-item">
-                                    <div class="session-avatar">
-                                        <img src="https://picsum.photos/seed/tutor1/100/100" alt="Tutor">
-                                    </div>
-                                    <div class="session-info">
-                                        <div class="session-title">Mathematics - Calculus II</div>
-                                        <div class="session-details">with Dr. Sarah Johnson</div>
-                                    </div>
-                                    <div class="session-time">
-                                        <div class="session-date">Today</div>
-                                        <div class="session-duration">3:00 PM - 4:00 PM</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="session-item">
-                                    <div class="session-avatar">
-                                        <img src="https://picsum.photos/seed/tutor2/100/100" alt="Tutor">
-                                    </div>
-                                    <div class="session-info">
-                                        <div class="session-title">Python Programming</div>
-                                        <div class="session-details">with Michael Rodriguez</div>
-                                    </div>
-                                    <div class="session-time">
-                                        <div class="session-date">Tomorrow</div>
-                                        <div class="session-duration">2:00 PM - 3:30 PM</div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="p-4 bg-white text-center shadow-sm rounded">
+                                <span class="icon-clock-o display-4 text-primary mb-3 d-block"></span>
+                                <h3 class="h5 text-black mb-3">Study Time</h3>
+                                <p class="text-muted">45 Hours This Month</p>
+                                <p><a href="#" class="btn btn-primary btn-sm px-4">Insights</a></p>
                             </div>
-                            
-                            <!-- Recent Activity -->
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Recent Activity</h3>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm-custom">View All</a>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-8 mb-4">
+                            <div class="p-4 p-md-5 bg-white shadow-sm rounded h-100">
+                                <h2 class="h4 text-black mb-4">Weekly Learning Progress</h2>
+                                <p class="text-muted mb-4">Your activity over the last 7 days</p>
+                                <div class="d-flex align-items-end justify-content-between mb-4" style="height: 150px;">
+                                    <div class="bg-primary opacity-5 rounded-top" style="width: 10%; height: 40%;"
+                                        title="Mon"></div>
+                                    <div class="bg-primary opacity-7 rounded-top" style="width: 10%; height: 65%;"
+                                        title="Tue"></div>
+                                    <div class="bg-primary rounded-top" style="width: 10%; height: 90%;" title="Wed">
+                                    </div>
+                                    <div class="bg-primary opacity-6 rounded-top" style="width: 10%; height: 55%;"
+                                        title="Thu"></div>
+                                    <div class="bg-primary opacity-8 rounded-top" style="width: 10%; height: 80%;"
+                                        title="Fri"></div>
+                                    <div class="bg-primary opacity-4 rounded-top" style="width: 10%; height: 30%;"
+                                        title="Sat"></div>
+                                    <div class="bg-primary opacity-3 rounded-top" style="width: 10%; height: 20%;"
+                                        title="Sun"></div>
                                 </div>
-                                
-                                <div class="timeline">
-                                    <div class="timeline-item">
-                                        <div class="timeline-content">
-                                            <div class="timeline-icon">
-                                                <i class="fas fa-check"></i>
-                                            </div>
-                                            <h6>Session Completed</h6>
-                                            <p>Completed Calculus II session with Dr. Sarah Johnson</p>
-                                            <small>2 hours ago</small>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="timeline-item">
-                                        <div class="timeline-content">
-                                            <div class="timeline-icon">
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h6>Review Submitted</h6>
-                                            <p>Rated Michael Rodriguez 5 stars for Python session</p>
-                                            <small>Yesterday</small>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="timeline-item">
-                                        <div class="timeline-content">
-                                            <div class="timeline-icon">
-                                                <i class="fas fa-book"></i>
-                                            </div>
-                                            <h6>Resource Downloaded</h6>
-                                            <p>Downloaded Study Planner Template</p>
-                                            <small>2 days ago</small>
-                                        </div>
-                                    </div>
+                                <div class="d-flex justify-content-between text-muted small">
+                                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Sessions Section (Hidden by default) -->
-                        <div id="sessions-section" class="content-section" style="display: none;">
-                            <div class="content-header">
-                                <h1 class="content-title">My Sessions</h1>
-                                <p class="content-subtitle">Manage your tutoring sessions</p>
-                            </div>
-                            
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Session History</h3>
-                                    <button class="btn btn-gold btn-sm-custom">Book New Session</button>
-                                </div>
-                                
-                                <div class="session-item">
-                                    <div class="session-avatar">
-                                        <img src="https://picsum.photos/seed/tutor3/100/100" alt="Tutor">
-                                    </div>
-                                    <div class="session-info">
-                                        <div class="session-title">Spanish Language</div>
-                                        <div class="session-details">with Maria Garcia</div>
-                                    </div>
-                                    <div class="session-time">
-                                        <div class="session-date">Dec 15, 2024</div>
-                                        <div class="session-duration">Completed</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="session-item">
-                                    <div class="session-avatar">
-                                        <img src="https://picsum.photos/seed/tutor4/100/100" alt="Tutor">
-                                    </div>
-                                    <div class="session-info">
-                                        <div class="session-title">Physics - Mechanics</div>
-                                        <div class="session-details">with David Kim</div>
-                                    </div>
-                                    <div class="session-time">
-                                        <div class="session-date">Dec 14, 2024</div>
-                                        <div class="session-duration">Completed</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Saved Tutors Section (Hidden by default) -->
-                        <div id="tutors-section" class="content-section" style="display: none;">
-                            <div class="content-header">
-                                <h1 class="content-title">Saved Tutors</h1>
-                                <p class="content-subtitle">Your favorite tutors</p>
-                            </div>
-                            
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Favorite Tutors</h3>
-                                    <a href="find-tutors.html" class="btn btn-gold btn-sm-custom">Find More</a>
-                                </div>
-                                
-                                <div class="tutor-item">
-                                    <div class="session-avatar">
-                                        <img src="https://picsum.photos/seed/tutor5/100/100" alt="Tutor">
-                                    </div>
-                                    <div class="tutor-info">
-                                        <div class="tutor-name">Dr. Sarah Johnson</div>
-                                        <div class="tutor-subjects">Mathematics, Calculus, Statistics</div>
-                                        <div class="tutor-rating">
-                                            <i class="fas fa-star"></i> 4.9 (127 reviews)
+                        <div class="col-lg-4 mb-4">
+                            <div class="p-4 p-md-5 bg-white shadow-sm rounded h-100">
+                                <h2 class="h4 text-black mb-4">Upcoming Sessions</h2>
+                                <ul class="list-unstyled">
+                                    <li class="d-flex align-items-center mb-4">
+                                        <div class="mr-3 p-2 bg-light rounded text-center" style="min-width: 50px;">
+                                            <span class="d-block font-weight-bold">19</span>
+                                            <span class="small text-muted">Feb</span>
                                         </div>
-                                    </div>
-                                    <div class="tutor-actions">
-                                        <button class="btn btn-gold btn-sm-custom">Book Session</button>
-                                        <button class="btn btn-outline-secondary btn-sm-custom">View Profile</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="tutor-item">
-                                    <div class="session-avatar">
-                                        <img src="https://picsum.photos/seed/tutor6/100/100" alt="Tutor">
-                                    </div>
-                                    <div class="tutor-info">
-                                        <div class="tutor-name">Michael Rodriguez</div>
-                                        <div class="tutor-subjects">Python, Data Science, Web Development</div>
-                                        <div class="tutor-rating">
-                                            <i class="fas fa-star"></i> 4.9 (156 reviews)
+                                        <div>
+                                            <h4 class="h6 mb-0 text-black">React Advanced</h4>
+                                            <span class="small text-muted">10:00 AM - 12:00 PM</span>
                                         </div>
-                                    </div>
-                                    <div class="tutor-actions">
-                                        <button class="btn btn-gold btn-sm-custom">Book Session</button>
-                                        <button class="btn btn-outline-secondary btn-sm-custom">View Profile</button>
-                                    </div>
-                                </div>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-4">
+                                        <div class="mr-3 p-2 bg-light rounded text-center" style="min-width: 50px;">
+                                            <span class="d-block font-weight-bold">21</span>
+                                            <span class="small text-muted">Feb</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-0 text-black">UI Design Basics</h4>
+                                            <span class="small text-muted">02:00 PM - 03:30 PM</span>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex align-items-center">
+                                        <div class="mr-3 p-2 bg-light rounded text-center" style="min-width: 50px;">
+                                            <span class="d-block font-weight-bold">23</span>
+                                            <span class="small text-muted">Feb</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-0 text-black">Node.js API</h4>
+                                            <span class="small text-muted">09:00 AM - 11:30 AM</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        
-                        <!-- Learning Progress Section (Hidden by default) -->
-                        <div id="progress-section" class="content-section" style="display: none;">
-                            <div class="content-header">
-                                <h1 class="content-title">Learning Progress</h1>
-                                <p class="content-subtitle">Track your learning journey</p>
-                            </div>
-                            
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Subject Progress</h3>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="p-4 p-md-5 bg-white shadow-sm rounded">
+                                <h2 class="h4 text-black mb-4">Recent Activity</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Course</th>
+                                                <th>Progress</th>
+                                                <th>Last Accessed</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Learning React Native</td>
+                                                <td>
+                                                    <div class="progress mt-2" style="height: 8px;">
+                                                        <div class="progress-bar bg-primary" role="progressbar"
+                                                            style="width: 75%;" aria-valuenow="75" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td>2 hours ago</td>
+                                                <td><a href="#" class="btn btn-outline-primary btn-sm px-3">Continue</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Learning Angular 101</td>
+                                                <td>
+                                                    <div class="progress mt-2" style="height: 8px;">
+                                                        <div class="progress-bar bg-primary" role="progressbar"
+                                                            style="width: 40%;" aria-valuenow="40" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td>Yesterday</td>
+                                                <td><a href="#" class="btn btn-outline-primary btn-sm px-3">Continue</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Advance Illustrator</td>
+                                                <td>
+                                                    <div class="progress mt-2" style="height: 8px;">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td>3 days ago</td>
+                                                <td><a href="#"
+                                                        class="btn btn-success btn-sm text-white px-3">Completed</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                
-                                <div class="progress-item">
-                                    <div class="progress-header">
-                                        <div class="progress-title">Mathematics</div>
-                                        <div class="progress-percentage">75%</div>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar-custom" style="width: 75%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="progress-item">
-                                    <div class="progress-header">
-                                        <div class="progress-title">Python Programming</div>
-                                        <div class="progress-percentage">60%</div>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar-custom" style="width: 60%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="progress-item">
-                                    <div class="progress-header">
-                                        <div class="progress-title">Spanish Language</div>
-                                        <div class="progress-percentage">45%</div>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar-custom" style="width: 45%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Messages Section (Hidden by default) -->
-                        <div id="messages-section" class="content-section" style="display: none;">
-                            <div class="content-header">
-                                <h1 class="content-title">Messages</h1>
-                                <p class="content-subtitle">Communicate with tutors</p>
-                            </div>
-                            
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Recent Messages</h3>
-                                    <button class="btn btn-gold btn-sm-custom">Compose</button>
-                                </div>
-                                
-                                <div class="message-item">
-                                    <div class="message-avatar">
-                                        <img src="https://picsum.photos/seed/tutor7/80/80" alt="Tutor">
-                                    </div>
-                                    <div class="message-content">
-                                        <div class="message-sender">Dr. Sarah Johnson</div>
-                                        <div class="message-text">Great work on today's calculus session! Here are some practice problems...</div>
-                                        <div class="message-time">2 hours ago</div>
-                                    </div>
-                                    <div class="message-status"></div>
-                                </div>
-                                
-                                <div class="message-item">
-                                    <div class="message-avatar">
-                                        <img src="https://picsum.photos/seed/tutor8/80/80" alt="Tutor">
-                                    </div>
-                                    <div class="message-content">
-                                        <div class="message-sender">Michael Rodriguez</div>
-                                        <div class="message-text">Looking forward to our Python session tomorrow!</div>
-                                        <div class="message-time">Yesterday</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Settings Section (Hidden by default) -->
-                        <div id="settings-section" class="content-section" style="display: none;">
-                            <div class="content-header">
-                                <h1 class="content-title">Settings</h1>
-                                <p class="content-subtitle">Manage your account preferences</p>
-                            </div>
-                            
-                            <div class="content-card">
-                                <div class="card-header-custom">
-                                    <h3 class="card-title">Profile Settings</h3>
-                                </div>
-                                
-                                <form>
-                                    <div class="mb-3">
-                                        <label class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" value="John Doe">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" value="john.doe@example.com">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Phone</label>
-                                        <input type="tel" class="form-control" value="+1 234 567 8900">
-                                    </div>
-                                    <button type="submit" class="btn btn-gold">Save Changes</button>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        // Section navigation
-        function showSection(section) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(sec => {
-                sec.style.display = 'none';
-            });
-            
-            // Show selected section
-            document.getElementById(section + '-section').style.display = 'block';
-            
-            // Update active menu item
-            document.querySelectorAll('.sidebar-menu a').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.target.classList.add('active');
+    </div>
+
+    <style>
+        #sidebar .bg-white-10 {
+            background: rgba(255, 255, 255, 0.1);
         }
-        
-        // Session booking
-        document.querySelectorAll('.btn-gold').forEach(btn => {
-            if (btn.textContent.includes('Book Session')) {
-                btn.addEventListener('click', function() {
-                    const tutorName = this.closest('.tutor-item').querySelector('.tutor-name').textContent;
-                    TutorHub.showNotification(`Opening booking for ${tutorName}...`, 'info');
-                    setTimeout(() => {
-                        window.location.href = 'tutor-profile.html';
-                    }, 1000);
-                });
+
+        #sidebar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+        }
+
+        #sidebar .bg-danger-hover:hover {
+            background: #dc3545 !important;
+        }
+
+        .opacity-3 {
+            opacity: 0.3;
+        }
+
+        .opacity-4 {
+            opacity: 0.4;
+        }
+
+        .opacity-5 {
+            opacity: 0.5;
+        }
+
+        .opacity-6 {
+            opacity: 0.6;
+        }
+
+        .opacity-7 {
+            opacity: 0.7;
+        }
+
+        .opacity-8 {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -250px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 1000;
+                transition: all 0.3s;
             }
-        });
-        
-        // Profile viewing
-        document.querySelectorAll('.btn-outline-secondary').forEach(btn => {
-            if (btn.textContent.includes('View Profile')) {
-                btn.addEventListener('click', function() {
-                    const tutorName = this.closest('.tutor-item').querySelector('.tutor-name').textContent;
-                    TutorHub.showNotification(`Viewing profile for ${tutorName}...`, 'info');
-                    setTimeout(() => {
-                        window.location.href = 'tutor-profile.html';
-                    }, 1000);
-                });
+
+            #sidebar.active {
+                margin-left: 0;
             }
-        });
-        
-        // Message interactions
-        document.querySelectorAll('.message-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const sender = this.querySelector('.message-sender').textContent;
-                TutorHub.showNotification(`Opening conversation with ${sender}...`, 'info');
+
+            #content {
+                width: 100%;
+            }
+        }
+    </style>
+
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
             });
-        });
-        
-        // Settings form submission
-        document.querySelector('#settings-section form')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            TutorHub.showNotification('Settings saved successfully!', 'success');
-        });
-        
-        // Compose message
-        document.querySelector('.btn-gold')?.addEventListener('click', function() {
-            if (this.textContent.includes('Compose')) {
-                TutorHub.showNotification('Message composer coming soon!', 'info');
-            }
-        });
-        
-        // Initialize dashboard with animation
-        window.addEventListener('load', function() {
-            // Animate stats on load
-            const statNumbers = document.querySelectorAll('.stat-number');
-            statNumbers.forEach((stat, index) => {
-                setTimeout(() => {
-                    stat.style.animation = 'fadeInUp 0.5s ease';
-                }, index * 100);
+
+            // Close sidebar when clicking outside on mobile
+            $(document).on('click', function (e) {
+                if ($(window).width() <= 768) {
+                    if (!$(e.target).closest('#sidebar').length && !$(e.target).closest('#sidebarCollapse').length) {
+                        $('#sidebar').removeClass('active');
+                    }
+                }
             });
-        });
-        
-        // Add hover effects to interactive elements
-        document.querySelectorAll('.session-item, .tutor-item, .message-item').forEach(item => {
-            item.style.cursor = 'pointer';
         });
     </script>
+
 </body>
+
 </html>
