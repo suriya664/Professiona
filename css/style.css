@@ -3,6 +3,53 @@ html {
   overflow-x: hidden;
 }
 
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --section-bg: #f8f9fa;
+  --card-bg: #ffffff;
+}
+
+body.dark-mode {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .site-navbar {
+  background: #1f1f1f !important;
+}
+
+body.dark-mode .site-section {
+  background-color: #121212 !important;
+}
+
+body.dark-mode .site-section.bg-light {
+  background-color: #1f1f1f !important;
+}
+
+body.dark-mode .heading h2 {
+  color: #fff !important;
+}
+
+body.dark-mode .course,
+body.dark-mode .tutorial-item,
+body.dark-mode .news-1,
+body.dark-mode .box {
+  background: #2c2c2c !important;
+  color: #fff !important;
+}
+
+body.dark-mode .course h3,
+body.dark-mode .tutorial-item h3 a,
+body.dark-mode .news-1 h3 a,
+body.dark-mode .box h3 a {
+  color: #fff !important;
+}
+
+body.dark-mode .meta {
+  color: #ccc !important;
+}
+
 .font-size-10 {
   font-size: 10px;
 }
@@ -1079,11 +1126,11 @@ h5,
 }
 
 .sticky-wrapper .site-navbar ul li a {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(0, 0, 0, 0.75) !important;
 }
 
 .sticky-wrapper .site-navbar ul li a.active {
-  color: #fff !important;
+  color: #0779e4 !important;
 }
 
 .sticky-wrapper.is-sticky .site-navbar {
@@ -1273,7 +1320,7 @@ h5,
 }
 
 .meta {
-  color: #a6a6a6;
+  color: #555;
 }
 
 .overlap {
@@ -1436,7 +1483,7 @@ h5,
 
 .course h3 {
   font-size: 18px;
-  color: #ccc;
+  color: #000;
   -webkit-transition: .3s color ease;
   -o-transition: .3s color ease;
   transition: .3s color ease;
@@ -1976,4 +2023,119 @@ img {
 /* Force Mobile Toggle to be White */
 .site-menu-toggle .icon-menu {
   color: #fff !important;
+}
+
+/* Social Icons - Footer */
+.site-footer .social li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.site-footer .social li a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  background: #f8f9fa;
+  border-radius: 50%;
+  text-align: center;
+  color: #000;
+  transition: .3s all ease;
+}
+
+.site-footer .social li a:hover {
+  background: #0779e4;
+  color: #fff;
+}
+
+.site-footer .social li a>span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Website correction patch */
+.heading {
+  text-align: center;
+}
+
+.course {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.course h3,
+.course .wrap-icon {
+  color: #fff;
+}
+
+.course:hover {
+  background: #0b5ed7;
+}
+
+.course:hover h3 {
+  color: #fff;
+}
+
+.meta {
+  color: #6c757d;
+  font-weight: 600;
+}
+
+@media (max-width: 1024.98px) {
+
+  .search-form .btn,
+  .custom-btn,
+  .cta .btn,
+  .btn.btn-primary {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #sidebar {
+    margin-left: -250px !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 250px !important;
+    min-width: 250px !important;
+    height: 100vh !important;
+    z-index: 1050;
+  }
+
+  #sidebar.active {
+    margin-left: 0 !important;
+  }
+}
+
+body.dark-mode {
+  background: #111;
+  color: #e5e5e5;
+}
+
+body.dark-mode .site-navbar,
+body.dark-mode .sticky-wrapper .site-navbar,
+body.dark-mode .site-mobile-menu,
+body.dark-mode .site-footer,
+body.dark-mode .tutorial-item,
+body.dark-mode .box,
+body.dark-mode .testimonial-2,
+body.dark-mode .bg-white,
+body.dark-mode .course {
+  background: #1b1b1b !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode .site-navbar a,
+body.dark-mode .site-footer a,
+body.dark-mode .heading h2,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode .meta,
+body.dark-mode .text-black {
+  color: #e5e5e5 !important;
 }
