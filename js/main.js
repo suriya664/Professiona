@@ -246,16 +246,17 @@ jQuery(document).ready(function ($) {
 	};
 	siteDatePicker();
 
-	var siteSticky = function () {
-		$(".js-sticky-header").sticky({ topSpacing: 0 });
-	};
-	siteSticky();
+	// var siteSticky = function () {
+	// 	$(".js-sticky-header").sticky({ topSpacing: 0 });
+	// };
+	// siteSticky();
 
 	// navigation
 	var OnePageNavigation = function () {
 		var navToggler = $('.site-menu-toggle');
 
 		$("body").on("click", ".main-menu li a[href^='#'], .smoothscroll[href^='#'], .site-mobile-menu .site-nav-wrap li a[href^='#']", function (e) {
+			if ($(this).hasClass('js-dark-mode-toggle')) return;
 			e.preventDefault();
 
 			var hash = this.hash;
@@ -295,8 +296,10 @@ jQuery(document).ready(function ($) {
 		var applyTheme = function (theme) {
 			if (theme === 'dark') {
 				$('body').addClass('dark-mode');
+				$('.js-dark-mode-toggle span').removeClass('icon-moon-o').addClass('icon-sun-o');
 			} else {
 				$('body').removeClass('dark-mode');
+				$('.js-dark-mode-toggle span').removeClass('icon-sun-o').addClass('icon-moon-o');
 			}
 		};
 
@@ -312,6 +315,13 @@ jQuery(document).ready(function ($) {
 		$('body').on('click', '.js-dark-mode-toggle', function (e) {
 			e.preventDefault();
 			$('body').toggleClass('dark-mode');
+
+			if ($('body').hasClass('dark-mode')) {
+				$('.js-dark-mode-toggle span').removeClass('icon-moon-o').addClass('icon-sun-o');
+			} else {
+				$('.js-dark-mode-toggle span').removeClass('icon-sun-o').addClass('icon-moon-o');
+			}
+
 			var nextTheme = $('body').hasClass('dark-mode') ? 'dark' : 'light';
 			try {
 				localStorage.setItem(storageKey, nextTheme);
@@ -320,7 +330,7 @@ jQuery(document).ready(function ($) {
 	};
 	initDarkMode();
 
-
+	// Counter
 	var counter = function () {
 
 		$('#about-section').waypoint(function (direction) {
@@ -350,30 +360,5 @@ jQuery(document).ready(function ($) {
 
 });
 
-// Theme Toggle
-var themeToggle = function() {
-var toggle = document.getElementById('theme-toggle');
-var body = document.body;
-
-if (localStorage.getItem('theme') === 'dark') {
-body.classList.add('dark-mode');
-if(toggle) toggle.innerHTML = '<span class=\'icon-sun\'></span>';
-}
-
-if(toggle) {
-toggle.addEventListener('click', function(e) {
-e.preventDefault();
-body.classList.toggle('dark-mode');
-
-if (body.classList.contains('dark-mode')) {
-localStorage.setItem('theme', 'dark');
-toggle.innerHTML = '<span class=\'icon-sun\'></span>';
-} else {
-localStorage.setItem('theme', 'light');
-toggle.innerHTML = '<span class=\'icon-moon\'></span>';
-}
-});
-}
-};
-themeToggle();
+// Theme Toggle logic has been integrated into initDarkMode
 

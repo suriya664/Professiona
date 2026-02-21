@@ -30,57 +30,47 @@
 
     <div class="site-wrap" id="home-section">
 
-        <div class="d-flex flex-column flex-md-row" style="min-height: 100vh;">
+        <div class="d-flex flex-column flex-lg-row" style="min-height: 100vh;">
             <!-- Sidebar -->
-            <nav id="sidebar" class="bg-primary text-white p-4" style="min-width: 250px; flex-shrink: 0;">
-                <div class="sidebar-header mb-5 text-center">
-                    <div class="site-logo">
-                        <a href="index.html" class="text-white h3"><span
-                                class="icon-book mr-3"></span><strong>Tutor</strong></a>
+            <nav id="sidebar" class="bg-white text-black border-right" style="min-width: 250px; flex-shrink: 0;">
 
-                    </div>
+
+                <div class="p-4">
+                    <h3 class="h4 text-black mb-4 font-weight-bold">User Dashboard</h3>
+                    <ul class="list-unstyled components">
+                        <li class="active mb-3">
+                            <a href="dashboard.html" class="text-primary d-block p-2 rounded bg-primary-light"><span
+                                    class="icon-dashboard mr-2"></span> Dashboard</a>
+                        </li>
+
+
+                        <li class="mb-3">
+                            <a href="tutorials.html" class="text-black d-block p-2 rounded"><span
+                                    class="icon-book mr-2"></span> My Courses</a>
+                        </li>
+                        <li class="mb-3">
+                            <a href="#" class="text-black d-block p-2 rounded"><span class="icon-star mr-2"></span>
+                                Achievements</a>
+                        </li>
+                        <li class="mb-3">
+                            <a href="#" class="text-black d-block p-2 rounded"><span class="icon-clock-o mr-2"></span>
+                                Study Stats</a>
+                        </li>
+                        <li class="mb-3">
+                            <a href="#" class="text-black d-block p-2 rounded"><span class="icon-bar-chart mr-2"></span>
+                                Weekly Progress</a>
+                        </li>
+                        <li class="mb-3">
+                            <a href="#" class="text-black d-block p-2 rounded"><span class="icon-calendar mr-2"></span>
+                                Upcoming Sessions</a>
+                        </li>
+                        <li class="mt-5">
+                            <a href="index.html" class="text-danger d-block p-2 rounded bg-danger-hover"><span
+                                    class="icon-sign-out mr-2"></span>
+                                Logout</a>
+                        </li>
+                    </ul>
                 </div>
-
-                <ul class="list-unstyled components">
-                    <li class="active mb-3">
-                        <a href="dashboard.html" class="text-white d-block p-2 rounded bg-white-10"><span
-                                class="icon-dashboard mr-2"></span> Dashboard</a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="index.html" class="text-white d-block p-2 rounded"><span class="icon-home mr-2"></span>
-                            Home 1</a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="index-2.html" class="text-white d-block p-2 rounded"><span
-                                class="icon-home mr-2"></span> Home 2</a>
-                    </li>
-
-                    <li class="mb-3">
-                        <a href="tutorials.html" class="text-white d-block p-2 rounded"><span
-                                class="icon-book mr-2"></span> My Courses</a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-star mr-2"></span>
-                            Achievements</a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-clock-o mr-2"></span>
-                            Study Stats</a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-bar-chart mr-2"></span>
-                            Weekly Progress</a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-white d-block p-2 rounded"><span class="icon-calendar mr-2"></span>
-                            Upcoming Sessions</a>
-                    </li>
-                    <li class="mt-5">
-                        <a href="index.html" class="text-white d-block p-2 rounded bg-danger-hover"><span
-                                class="icon-sign-out mr-2"></span>
-                            Logout</a>
-                    </li>
-                </ul>
             </nav>
 
             <!-- Main Content Area -->
@@ -88,14 +78,19 @@
                 <!-- Top Navigation Bar -->
                 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom p-3 shadow-sm sticky-top">
                     <div class="container-fluid justify-content-center position-relative">
-                        <button type="button" id="sidebarCollapse" class="btn btn-primary d-md-none position-absolute"
+                        <button type="button" id="sidebarCollapse" class="btn btn-primary d-xl-none position-absolute"
                             style="left: 15px;">
                             <span class="icon-menu"></span>
                         </button>
-                        <span class="navbar-brand h4 mb-0 text-black mx-auto">Dashboard Overview</span>
+
+                        <!-- Brand/Logo -->
+                        <div class="mx-auto site-logo">
+                            <a href="index.html" class="text-black"><span
+                                    class="icon-book mr-2"></span><strong>Tutor</strong></a>
+                        </div>
                         <a href="#" class="btn btn-link js-dark-mode-toggle position-absolute text-black"
                             style="right: 15px; top: 50%; transform: translateY(-50%);">
-                            <span class="icon-moon h4 mb-0"></span>
+                            <span class="icon-moon-o h4 mb-0"></span>
                         </a>
                     </div>
                 </nav>
@@ -261,17 +256,24 @@
     </div>
 
     <style>
-        #sidebar .bg-white-10 {
-            background: rgba(255, 255, 255, 0.1);
+        #sidebar .bg-primary-light {
+            background: rgba(7, 121, 228, 0.1);
         }
 
         #sidebar a:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.05);
             text-decoration: none;
+        }
+
+        @media (max-width: 1024px) {
+            #sidebar .p-4 {
+                padding-top: 70px !important;
+            }
         }
 
         #sidebar .bg-danger-hover:hover {
             background: #dc3545 !important;
+            color: #fff !important;
         }
 
         .opacity-3 {
@@ -298,14 +300,14 @@
             opacity: 0.8;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             #sidebar {
                 margin-left: -250px;
                 position: fixed;
                 top: 0;
                 left: 0;
                 height: 100vh;
-                z-index: 1000;
+                z-index: 1100;
                 transition: all 0.3s;
             }
 
@@ -315,6 +317,16 @@
 
             #content {
                 width: 100%;
+            }
+
+            #sidebarCollapse {
+                display: block !important;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            #sidebarCollapse {
+                display: none !important;
             }
         }
     </style>
@@ -343,7 +355,7 @@
 
             // Close sidebar when clicking outside on mobile
             $(document).on('click', function (e) {
-                if ($(window).width() <= 768) {
+                if ($(window).width() <= 1024) {
                     if (!$(e.target).closest('#sidebar').length && !$(e.target).closest('#sidebarCollapse').length) {
                         $('#sidebar').removeClass('active');
                     }
